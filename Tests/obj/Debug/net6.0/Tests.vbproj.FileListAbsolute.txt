@@ -15,3 +15,4 @@
 /home/prydaran/RiderProjects/LightningConstructs/Tests/obj/Debug/net6.0/ref/Tests.dll
 /home/prydaran/RiderProjects/LightningConstructs/Tests/obj/Debug/net6.0/Tests.pdb
 /home/prydaran/RiderProjects/LightningConstructs/Tests/obj/Debug/net6.0/Tests.genruntimeconfig.cache
+/home/prydaran/RiderProjects/LightningConstructs/Tests/bin/Debug/net6.0/LightningConstructs.pdb

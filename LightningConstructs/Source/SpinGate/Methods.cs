@@ -20,7 +20,7 @@ namespace Lightning
                         BaseTimeoutCounter += SyncGovernor.IterationElapsed;
                         if (BaseTimeoutCounter >= BaseTimeoutLimit)
                         {
-                            throw new System.TimeoutException("Gate timed out.");
+                            throw new System.TimeoutException("SpinGate timed out!");
                         } 
                     }
                     SyncGovernor.Limit();

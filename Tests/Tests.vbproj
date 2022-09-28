@@ -7,9 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Reference Include="LightningConstructs">
-        <HintPath>..\..\MaelstromProtocol\LightningConstructs\bin\Release\netstandard2.1\LightningConstructs.dll</HintPath>
-      </Reference>
+      <ProjectReference Include="..\LightningConstructs\LightningConstructs.csproj" />
     </ItemGroup>
 
 </Project>

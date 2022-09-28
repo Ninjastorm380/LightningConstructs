@@ -4,6 +4,64 @@
     "/home/prydaran/RiderProjects/LightningConstructs/Tests/Tests.vbproj": {}
   },
   "projects": {
+    "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj",
+        "projectName": "LightningConstructs",
+        "projectPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj",
+        "packagesPath": "/home/prydaran/.nuget/packages/",
+        "outputPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/prydaran/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.9, 6.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.109/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/home/prydaran/RiderProjects/LightningConstructs/Tests/Tests.vbproj": {
       "version": "1.0.0",
       "restore": {
@@ -25,7 +83,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj": {
+                "projectPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

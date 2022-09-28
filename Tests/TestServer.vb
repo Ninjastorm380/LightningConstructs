@@ -53,6 +53,36 @@ Public Class TestServer
     End Sub
     
     Private Sub ListenerEvent(NewSocket As Socket)
-        Console.WriteLine("Server: Client socket has connected.")
+        Console.WriteLine("  Server: Client connected.")
+        Dim Governor as new Governor(20)
+        Dim BufferIn(3) As Byte
+        Dim BufferInTest As Byte() = {1,2,3,4}
+        NewSocket.Write(BufferInTest, 0, 4, Net.Sockets.SocketFlags.None)
+        While NewSocket.Connected = True
+            If NewSocket.Available > 0 Then
+                BufferIn(0) = 0
+                BufferIn(1) = 0
+                BufferIn(2) = 0
+                BufferIn(3) = 0
+                Console.WriteLine("  Server: Reading in data...")
+                If NewSocket.Connected = True Then NewSocket.Read(BufferIn,0, 4, Net.Sockets.SocketFlags.None)
+                If BufferIn(0) <> BufferInTest(0) Then
+                    Console.WriteLine("  Server: Data error at byte 0.")
+                End If
+                If BufferIn(1) <> BufferInTest(1) Then
+                    Console.WriteLine("  Server: Data error at byte 1.")
+                End If
+                If BufferIn(2) <> BufferInTest(2) Then
+                    Console.WriteLine("  Server: Data error at byte 2.")
+                End If
+                If BufferIn(3) <> BufferInTest(3) Then
+                    Console.WriteLine("  Server: Data error at byte 3.")
+                End If
+                Console.WriteLine("  Server: Writing out data...")
+                If NewSocket.Connected = True Then NewSocket.Write(BufferInTest, 0, 4, Net.Sockets.SocketFlags.None)
+            End If
+            Governor.Limit()
+        End While
+        Console.WriteLine("  Server: Client disconnected.")
     End Sub
 End Class
