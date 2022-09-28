@@ -5,11 +5,9 @@ Module Program
     Sub Main(args As String())
         TC.Endpoint = TestEndpoint
         TS.Endpoint = TestEndpoint
-        TS.TestReusability()
+        TS.Test()
         TS.Start()
         TC.TestReusability()
         TS.Stop()
-        
-        
     End Sub
 End Module

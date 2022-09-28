@@ -17,8 +17,8 @@
   "libraries": {
     "LightningConstructs/1.0.0": {
       "type": "project",
-      "path": "../LightningConstructs/LightningConstructs.csproj",
-      "msbuildProject": "../LightningConstructs/LightningConstructs.csproj"
+      "path": "../LightningConstructs/LightningConstructs.vbproj",
+      "msbuildProject": "../LightningConstructs/LightningConstructs.vbproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -51,8 +51,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj": {
-              "projectPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj"
+            "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj": {
+              "projectPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj"
             }
           }
         }

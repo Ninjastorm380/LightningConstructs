@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj",
+      "projectUniqueName": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj",
       "projectName": "LightningConstructs",
-      "projectPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj",
+      "projectPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj",
       "packagesPath": "/home/prydaran/.nuget/packages/",
       "outputPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/obj/",
       "projectStyle": "PackageReference",

@@ -8,18 +8,15 @@
     ".NETCoreApp,Version=v6.0": {
       "Tests/1.0.0": {
         "dependencies": {
-          "LightningConstructs": "1.0.0.0"
+          "ClassLibrary1": "1.0.0"
         },
         "runtime": {
           "Tests.dll": {}
         }
       },
-      "LightningConstructs/1.0.0.0": {
+      "ClassLibrary1/1.0.0": {
         "runtime": {
-          "LightningConstructs.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "ClassLibrary1.dll": {}
         }
       }
     }
@@ -30,8 +27,8 @@
       "serviceable": false,
       "sha512": ""
     },
-    "LightningConstructs/1.0.0.0": {
-      "type": "reference",
+    "ClassLibrary1/1.0.0": {
+      "type": "project",
       "serviceable": false,
       "sha512": ""
     }

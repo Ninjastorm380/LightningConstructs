@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kUGp33ogwmOl8hUjR3hBvJhjgLuLK53PrLblzDd3N5r5P/1sb0f46Jb4w03dBSacc1LYV0s9XnO4fodhp/x9eA==",
+  "dgSpecHash": "vPuQh8V2dE2tGAyHrHWrxH2Wo40QSH/EZuvil1ptpHOIUfMTkKH+x1ToXqkUTPki23Nb8aKW8FuhxYegT8l1Zg==",
   "success": true,
-  "projectFilePath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj",
+  "projectFilePath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj",
   "expectedPackageFiles": [
     "/home/prydaran/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.9/microsoft.aspnetcore.app.ref.6.0.9.nupkg.sha512"
   ],

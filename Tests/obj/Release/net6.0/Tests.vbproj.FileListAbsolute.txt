@@ -3,8 +3,6 @@
 /home/prydaran/RiderProjects/LightningConstructs/Tests/bin/Release/net6.0/Tests.runtimeconfig.json
 /home/prydaran/RiderProjects/LightningConstructs/Tests/bin/Release/net6.0/Tests.dll
 /home/prydaran/RiderProjects/LightningConstructs/Tests/bin/Release/net6.0/ref/Tests.dll
-/home/prydaran/RiderProjects/LightningConstructs/Tests/bin/Release/net6.0/Tests.pdb
-/home/prydaran/RiderProjects/LightningConstructs/Tests/bin/Release/net6.0/LightningConstructs.dll
 /home/prydaran/RiderProjects/LightningConstructs/Tests/obj/Release/net6.0/Tests.vbproj.AssemblyReference.cache
 /home/prydaran/RiderProjects/LightningConstructs/Tests/obj/Release/net6.0/Tests.GeneratedMSBuildEditorConfig.editorconfig
 /home/prydaran/RiderProjects/LightningConstructs/Tests/obj/Release/net6.0/Tests.AssemblyInfoInputs.cache
@@ -13,5 +11,6 @@
 /home/prydaran/RiderProjects/LightningConstructs/Tests/obj/Release/net6.0/Tests.vbproj.CopyComplete
 /home/prydaran/RiderProjects/LightningConstructs/Tests/obj/Release/net6.0/Tests.dll
 /home/prydaran/RiderProjects/LightningConstructs/Tests/obj/Release/net6.0/ref/Tests.dll
-/home/prydaran/RiderProjects/LightningConstructs/Tests/obj/Release/net6.0/Tests.pdb
 /home/prydaran/RiderProjects/LightningConstructs/Tests/obj/Release/net6.0/Tests.genruntimeconfig.cache
+/home/prydaran/RiderProjects/LightningConstructs/Tests/bin/Release/net6.0/ClassLibrary1.dll
+/home/prydaran/RiderProjects/LightningConstructs/Tests/bin/Release/net6.0/ClassLibrary1.pdb

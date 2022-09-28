@@ -4,12 +4,12 @@
     "/home/prydaran/RiderProjects/LightningConstructs/Tests/Tests.vbproj": {}
   },
   "projects": {
-    "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj": {
+    "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj",
+        "projectUniqueName": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj",
         "projectName": "LightningConstructs",
-        "projectPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj",
+        "projectPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj",
         "packagesPath": "/home/prydaran/.nuget/packages/",
         "outputPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/obj/",
         "projectStyle": "PackageReference",
@@ -84,8 +84,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj": {
-                "projectPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj"
+              "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj": {
+                "projectPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj"
               }
             }
           }

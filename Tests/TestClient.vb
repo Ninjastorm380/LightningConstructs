@@ -3,7 +3,7 @@ Public Class TestClient
     Private ReadOnly Socket As New Socket
     Public Property Endpoint As Net.IPEndPoint
     Public Sub New()
-        AddHandler Socket.ClientSocketConnected, AddressOf ListenerEvent
+        AddHandler Socket.ClientSocketConnected, AddressOf ConnectedEvent
     End Sub
     Public Sub Connect
         Socket.Connect(Endpoint)
@@ -51,9 +51,9 @@ Public Class TestClient
         Threading.Thread.Sleep(1000)
     End Sub
     
-    Private Sub ListenerEvent(NewSocket As Socket)
+    Private Sub ConnectedEvent(NewSocket As Socket)
         Console.WriteLine("  Client: Connected.")
-        Dim Governor as new Governor(20)
+        Dim Governor as new Governor(1000)
         Dim BufferIn(3) As Byte
         Dim BufferInTest As Byte() = {1,2,3,4}
         NewSocket.Write(BufferInTest, 0, 4, Net.Sockets.SocketFlags.None)
@@ -63,23 +63,21 @@ Public Class TestClient
                 BufferIn(1) = 0
                 BufferIn(2) = 0
                 BufferIn(3) = 0
-                Console.WriteLine("  Client: Reading in data...")
-                If NewSocket.Connected = True Then NewSocket.Read(BufferIn,0, 4, Net.Sockets.SocketFlags.None)
-                If BufferIn(0) <> BufferInTest(0) Then
-                    Console.WriteLine("  Client: Data error at byte 0.")
+                If NewSocket.Read(BufferIn,0, 4, Net.Sockets.SocketFlags.None) > 0
+                    If BufferIn(0) <> BufferInTest(0) Then
+                        Console.WriteLine("  Client: Data error at byte 0.")
+                    End If
+                    If BufferIn(1) <> BufferInTest(1) Then
+                        Console.WriteLine("  Client: Data error at byte 1.")
+                    End If
+                    If BufferIn(2) <> BufferInTest(2) Then
+                        Console.WriteLine("  Client: Data error at byte 2.")
+                    End If
+                    If BufferIn(3) <> BufferInTest(3) Then
+                        Console.WriteLine("  Client: Data error at byte 3.")
+                    End If
+                    NewSocket.Write(BufferInTest, 0, 4, Net.Sockets.SocketFlags.None)
                 End If
-                If BufferIn(1) <> BufferInTest(1) Then
-                    Console.WriteLine("  Client: Data error at byte 1.")
-                End If
-                If BufferIn(2) <> BufferInTest(2) Then
-                    Console.WriteLine("  Client: Data error at byte 2.")
-                End If
-                If BufferIn(3) <> BufferInTest(3) Then
-                    Console.WriteLine("  Client: Data error at byte 3.")
-                End If
-                Console.WriteLine("  Client: Writing out data...")
-                If NewSocket.Connected = True Then NewSocket.Write(BufferInTest, 0, 4, Net.Sockets.SocketFlags.None)
-                
             End If
             Governor.Limit()
         End While
