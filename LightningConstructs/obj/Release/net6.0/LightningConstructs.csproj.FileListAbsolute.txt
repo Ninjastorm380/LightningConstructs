@@ -1,0 +1,10 @@
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/obj/Release/net6.0/LightningConstructs.csproj.AssemblyReference.cache
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/obj/Release/net6.0/LightningConstructs.GeneratedMSBuildEditorConfig.editorconfig
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/obj/Release/net6.0/LightningConstructs.AssemblyInfoInputs.cache
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/obj/Release/net6.0/LightningConstructs.AssemblyInfo.cs
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/obj/Release/net6.0/LightningConstructs.csproj.CoreCompileInputs.cache
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/obj/Release/net6.0/LightningConstructs.dll
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/obj/Release/net6.0/ref/LightningConstructs.dll
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/bin/release/net6.0/LightningConstructs.deps.json
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/bin/release/net6.0/LightningConstructs.dll
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/bin/release/net6.0/ref/LightningConstructs.dll

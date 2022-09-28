@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "kUGp33ogwmOl8hUjR3hBvJhjgLuLK53PrLblzDd3N5r5P/1sb0f46Jb4w03dBSacc1LYV0s9XnO4fodhp/x9eA==",
+  "success": true,
+  "projectFilePath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.csproj",
+  "expectedPackageFiles": [
+    "/home/prydaran/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.9/microsoft.aspnetcore.app.ref.6.0.9.nupkg.sha512"
+  ],
+  "logs": []
+}

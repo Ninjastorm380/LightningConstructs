@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "LightningConstructsTests/1.0.0": {
+        "dependencies": {
+          "LightningConstructs": "1.0.0.0"
+        },
+        "runtime": {
+          "LightningConstructsTests.dll": {}
+        }
+      },
+      "LightningConstructs/1.0.0.0": {
+        "runtime": {
+          "LightningConstructs.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LightningConstructsTests/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LightningConstructs/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

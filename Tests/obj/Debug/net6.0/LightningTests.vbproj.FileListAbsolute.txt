@@ -1,0 +1,17 @@
+/home/prydaran/RiderProjects/LightningTests/LightningTests/bin/Debug/net6.0/LightningTests
+/home/prydaran/RiderProjects/LightningTests/LightningTests/bin/Debug/net6.0/LightningTests.deps.json
+/home/prydaran/RiderProjects/LightningTests/LightningTests/bin/Debug/net6.0/LightningTests.runtimeconfig.json
+/home/prydaran/RiderProjects/LightningTests/LightningTests/bin/Debug/net6.0/LightningTests.dll
+/home/prydaran/RiderProjects/LightningTests/LightningTests/bin/Debug/net6.0/ref/LightningTests.dll
+/home/prydaran/RiderProjects/LightningTests/LightningTests/bin/Debug/net6.0/LightningTests.pdb
+/home/prydaran/RiderProjects/LightningTests/LightningTests/bin/Debug/net6.0/LightningConstructs.dll
+/home/prydaran/RiderProjects/LightningTests/LightningTests/obj/Debug/net6.0/LightningTests.vbproj.AssemblyReference.cache
+/home/prydaran/RiderProjects/LightningTests/LightningTests/obj/Debug/net6.0/LightningTests.GeneratedMSBuildEditorConfig.editorconfig
+/home/prydaran/RiderProjects/LightningTests/LightningTests/obj/Debug/net6.0/LightningTests.AssemblyInfoInputs.cache
+/home/prydaran/RiderProjects/LightningTests/LightningTests/obj/Debug/net6.0/LightningTests.AssemblyInfo.vb
+/home/prydaran/RiderProjects/LightningTests/LightningTests/obj/Debug/net6.0/LightningTests.vbproj.CoreCompileInputs.cache
+/home/prydaran/RiderProjects/LightningTests/LightningTests/obj/Debug/net6.0/LightningTests.vbproj.CopyComplete
+/home/prydaran/RiderProjects/LightningTests/LightningTests/obj/Debug/net6.0/LightningTests.dll
+/home/prydaran/RiderProjects/LightningTests/LightningTests/obj/Debug/net6.0/ref/LightningTests.dll
+/home/prydaran/RiderProjects/LightningTests/LightningTests/obj/Debug/net6.0/LightningTests.pdb
+/home/prydaran/RiderProjects/LightningTests/LightningTests/obj/Debug/net6.0/LightningTests.genruntimeconfig.cache

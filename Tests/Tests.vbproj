@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>LightningTests</RootNamespace>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="LightningConstructs">
+        <HintPath>..\..\MaelstromProtocol\LightningConstructs\bin\Release\netstandard2.1\LightningConstructs.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

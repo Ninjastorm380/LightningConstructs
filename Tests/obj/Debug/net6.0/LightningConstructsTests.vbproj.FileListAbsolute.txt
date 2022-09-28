@@ -1,0 +1,17 @@
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/bin/Debug/net6.0/LightningConstructsTests
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/bin/Debug/net6.0/LightningConstructsTests.deps.json
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/bin/Debug/net6.0/LightningConstructsTests.runtimeconfig.json
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/bin/Debug/net6.0/LightningConstructsTests.dll
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/bin/Debug/net6.0/ref/LightningConstructsTests.dll
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/bin/Debug/net6.0/LightningConstructsTests.pdb
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/bin/Debug/net6.0/LightningConstructs.dll
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/obj/Debug/net6.0/LightningConstructsTests.vbproj.AssemblyReference.cache
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/obj/Debug/net6.0/LightningConstructsTests.GeneratedMSBuildEditorConfig.editorconfig
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/obj/Debug/net6.0/LightningConstructsTests.AssemblyInfoInputs.cache
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/obj/Debug/net6.0/LightningConstructsTests.AssemblyInfo.vb
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/obj/Debug/net6.0/LightningConstructsTests.vbproj.CoreCompileInputs.cache
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/obj/Debug/net6.0/LightningConstructsTests.vbproj.CopyComplete
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/obj/Debug/net6.0/LightningConstructsTests.dll
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/obj/Debug/net6.0/ref/LightningConstructsTests.dll
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/obj/Debug/net6.0/LightningConstructsTests.pdb
+/home/prydaran/RiderProjects/LightningConstructs/LightningConstructsTests/obj/Debug/net6.0/LightningConstructsTests.genruntimeconfig.cache
