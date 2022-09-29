@@ -8,3 +8,4 @@ Library contents:
  + Socket: A thread safe TCP socket, with accurate disconnect detection.
  + Dictionary: A value-refrence based generic dictionary, built for high speed access and storage.
  + SpinGate: A generic blocking-wait style synchronization class, with the ability to return data to the locking thread. Based off of Governor.
+ + AsyncConsole: A utility class for writing to the console/terminal asynchronously.
