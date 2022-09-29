@@ -65,7 +65,11 @@
             End If
 
             SyncLock WriteLock
-                Return NetSocket.Send(Buffer, Offset, Length, Flags)
+                Try
+                    Return NetSocket.Send(Buffer, Offset, Length, Flags)
+                Catch
+                    Return 0
+                End Try
             End SyncLock
         End Function
 
