@@ -1,5 +1,5 @@
     Public Partial Class Socket
-        Public ReadOnly Property Available As System.Int32
+        Public ReadOnly Property Available As Int32
             Get
                 Return NetSocket.Available
             End Get
@@ -13,19 +13,12 @@
 
         Public ReadOnly Property Connected As System.Boolean
             Get
-
-                If IsConnected = False Then
-                    Return False
-                End If
-
+                If IsConnected = False Then Return False
                 SyncLock ReadLock
-
-                    SyncLock WriteLock
-                        Dim DataAvailable = NetSocket.Poll(0, System.Net.Sockets.SelectMode.SelectRead)
-                        Dim DataNotAvailable = (NetSocket.Available = 0)
-                        IsConnected = Not (DataAvailable = True AndAlso DataNotAvailable = True)
-                        Return IsConnected
-                    End SyncLock
+                    Dim DataAvailable = NetSocket.Poll(0, Net.Sockets.SelectMode.SelectRead)
+                    Dim DataNotAvailable = (NetSocket.Available = 0)
+                    IsConnected = Not (DataAvailable = True AndAlso DataNotAvailable = True)
+                    Return IsConnected
                 End SyncLock
             End Get
         End Property

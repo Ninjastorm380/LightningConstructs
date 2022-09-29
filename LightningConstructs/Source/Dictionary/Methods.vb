@@ -1,5 +1,5 @@
     Public Partial Class Dictionary(Of TKey, TValue)
-        Private Function Search(ByVal Key As TKey) As System.Int32
+        Private Function Search(ByVal Key As TKey) As Int32
             If FreePointer = 0 Then Return -1
 
             For Index = 0 To FreePointer - 1
@@ -18,9 +18,9 @@
                 If ReclaimedCount = 0 Then
 
                     If FreePointer >= BaseKeysArray.Length Then
-                        System.Array.Resize(BaseKeysArray, FreePointer * 2)
-                        System.Array.Resize(BaseValuesArray, FreePointer * 2)
-                        System.Array.Resize(BaseClaimedBitmap, FreePointer * 2)
+                        Array.Resize(BaseKeysArray, FreePointer * 2)
+                        Array.Resize(BaseValuesArray, FreePointer * 2)
+                        Array.Resize(BaseClaimedBitmap, FreePointer * 2)
                     End If
 
                     BaseKeysArray(FreePointer) = Key
@@ -38,7 +38,7 @@
         End Sub
 
         Public Sub Remove(ByVal Key As TKey)
-            Dim ClaimedPointer As System.Int32 = Search(Key)
+            Dim ClaimedPointer As Int32 = Search(Key)
 
             If ClaimedPointer <> -1 Then
                 ReclaimedPointers.Enqueue(ClaimedPointer)

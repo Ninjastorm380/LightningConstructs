@@ -3,22 +3,18 @@
             BaseRate = Rate
         End Sub
 
-        Public Function Lock(ByVal Optional TimeoutMS As System.Int32 = 0) As T
+        Public Function Lock(ByVal Optional TimeoutMS As Int32 = 0) As T
             BaseTimeoutLimit = TimeoutMS
-
             If BaseReturnCalledEarlyFlag = False Then
                 BaseReturnFlag = False
-
                 Do
-
                     If BaseTimeoutLimit > 0.0 Then
                         BaseTimeoutCounter += SyncGovernor.IterationElapsed
 
                         If BaseTimeoutCounter >= BaseTimeoutLimit Then
-                            Throw New System.TimeoutException("SpinGate timed out!")
+                            Throw New TimeoutException("SpinGate timed out!")
                         End If
                     End If
-
                     SyncGovernor.Limit()
                 Loop While BaseReturnFlag = False
             End If
