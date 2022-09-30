@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "vPuQh8V2dE2tGAyHrHWrxH2Wo40QSH/EZuvil1ptpHOIUfMTkKH+x1ToXqkUTPki23Nb8aKW8FuhxYegT8l1Zg==",
+  "dgSpecHash": "2HbZZL4M2lZ0sl7/ZRSTPaiXaIdMi8jxPdalpJOqJz+JSkCWFP58w3kHuSnDMnzQmFyvmhq/NwudLPQrNLx+RA==",
   "success": true,
   "projectFilePath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj",
   "expectedPackageFiles": [
-    "/home/prydaran/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.9/microsoft.aspnetcore.app.ref.6.0.9.nupkg.sha512"
+    "/home/prydaran/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/home/prydaran/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512"
   ],
   "logs": []
 }
