@@ -9,8 +9,6 @@ Module Program
         TS.Start()
         TC.TestReusability()
         TS.Stop()
-        TS.Dispose()
-        TC.Dispose()
         Console.WriteLine("All tests complete.")
     End Sub
 End Module

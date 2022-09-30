@@ -1,11 +1,11 @@
-Public Partial Class AsyncConsole : Implements IDisposable
+Public Partial Class AsyncConsole
     Public Sub New(Optional Rate As Double = 20.0)
         FlushGovernor.Rate = Rate
-        CloseFlushThread = False
         SyncLock FlushLock
             If BufferEngineExists = False Then
                 Dim AsyncThread As New Threading.Thread( AddressOf FlushEngine)
                 AsyncThread.Start()
+                ExecutingThread = Threading.Thread.CurrentThread
                 BufferEngineExists = True
             End If
         End SyncLock
@@ -31,20 +31,13 @@ Public Partial Class AsyncConsole : Implements IDisposable
                     FlushQueue.Shift(TempArrayCount)
                 End SyncLock
                 For Index = 0 To TempArrayCount - 1
-                    If CloseFlushThread = True Then Exit For
+                    If ExecutingThread.IsAlive = False Then Exit For
                     Console.WriteLine(TempArray(Index))
                     Threading.Thread.Yield()
                 Next
             End If
             FlushGovernor.Limit()
-        Loop While CloseFlushThread = False
-        SyncLock FlushLock
-            FlushQueue.Clear()
-        End SyncLock
-    End Sub
-    
-    Public Sub Dispose() Implements IDisposable.Dispose
-        CloseFlushThread = True
+        Loop While ExecutingThread.IsAlive
         SyncLock FlushLock
             FlushQueue.Clear()
         End SyncLock

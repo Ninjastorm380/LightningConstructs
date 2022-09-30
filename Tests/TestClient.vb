@@ -1,5 +1,5 @@
 Imports Lightning
-Public Class TestClient : Implements IDisposable
+Public Class TestClient
     Private ReadOnly Socket As New Socket
     Public Property Endpoint As Net.IPEndPoint
     Private Readonly Console As New AsyncConsole
@@ -111,9 +111,5 @@ Public Class TestClient : Implements IDisposable
             Governor.Limit()
         End While
         Console.WriteLine("  Client: Disconnected.")
-    End Sub
-
-    Public Sub Dispose() Implements IDisposable.Dispose
-        Console.Dispose()
     End Sub
 End Class
