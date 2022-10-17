@@ -19,27 +19,30 @@ Public Partial Class AsyncConsole
     End Sub
 
     Private Sub FlushEngine()
-        Dim TempArray(0) As String
+        Dim Temp As String = ""
+        Dim TempArray(32767) As String
         Dim TempArrayCount As Int32
         Do
             If FlushQueue.Length > 0
-                TempArrayCount = FlushQueue.Length
-                If TempArray.Length < TempArrayCount Then Redim TempArray(TempArrayCount - 1)
                 
+                FlushQueue.ReadOne(Temp,0)
                 SyncLock FlushLock
-                    FlushQueue.Read(TempArray,0,0,TempArrayCount)
-                    FlushQueue.Shift(TempArrayCount)
+                    FlushQueue.Shift(1)
                 End SyncLock
-                For Index = 0 To TempArrayCount - 1
-                    If ExecutingThread.IsAlive = False Then Exit For
-                    Console.WriteLine(TempArray(Index))
-                    Threading.Thread.Yield()
-                Next
+                Console.WriteLine(Temp)
+                Threading.Thread.Yield()
+            Else
+                FlushGovernor.Limit()
             End If
-            FlushGovernor.Limit()
         Loop While ExecutingThread.IsAlive
-        SyncLock FlushLock
-            FlushQueue.Clear()
-        End SyncLock
+        If FlushQueue.Length > 0
+            TempArrayCount = FlushQueue.Length
+            If TempArray.Length < TempArrayCount Then Redim TempArray((TempArrayCount * 2) - 1)
+            FlushQueue.Read(TempArray,0,0,TempArrayCount)
+            FlushQueue.Shift(TempArrayCount)
+            For Index = 0 To TempArrayCount - 1
+                Console.WriteLine(TempArray(Index))
+            Next
+        End If
     End Sub
 End Class

@@ -61,7 +61,13 @@
 
         Public Function Write(ByVal Buffer As Byte(), ByVal Offset As Int32, ByVal Length As Int32, ByVal Flags As Net.Sockets.SocketFlags) As Int32
             SyncLock WriteLock
-               If Connected = True Then Return NetSocket.Send(Buffer, Offset, Length, Flags)
+                If Connected = True Then 
+                    Try
+                        Return NetSocket.Send(Buffer, Offset, Length, Flags)
+                    Catch
+                        IsConnected = False
+                    End Try
+                End If
             End SyncLock
             Return 0
         End Function

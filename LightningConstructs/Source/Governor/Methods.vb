@@ -6,6 +6,14 @@
             BaseSleepTarget = New TimeSpan(BaseTimeConstant - BaseSleepOffsetConstant)
             BaseGovernorWatch = Stopwatch.StartNew()
         End Sub
+        
+        Public Sub Pause()
+            BaseGovernorWatch.Stop()
+        End Sub
+        
+        Public Sub [Resume]()
+            BaseGovernorWatch.Start()
+        End Sub
 
         Public Sub Limit()
             If BaseSleepTarget.Ticks > 1000 Then
