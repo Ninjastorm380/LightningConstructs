@@ -9,6 +9,8 @@
                 BaseSleepTarget = New TimeSpan(BaseTimeConstant - BaseSleepOffsetConstant)
             End Set
         End Property
+        
+        Public Property UseExtremePrecision As Boolean = False
 
         Public ReadOnly Property Delta As Double
             Get
@@ -24,13 +26,7 @@
 
         Public ReadOnly Property IterationElapsed As Double
             Get
-                Return (1000.0 / BaseDelta)
-            End Get
-        End Property
-
-        Public ReadOnly Property IterationProjected As Double
-            Get
-                Return (1000.0 / BaseRate)
+                Return Delta / 1000.0
             End Get
         End Property
     End Class

@@ -6,7 +6,6 @@ Public Partial Class Socket
                 If NetSocket Is Nothing Then Return 0
                 If IsConnected = False Then Return 0
                 If NetSocket.Connected = False Then Return 0
-                If Connected = False Then Return 0
                 Return NetSocket.Available
             End Get
         End Property

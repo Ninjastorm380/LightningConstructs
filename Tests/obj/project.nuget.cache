@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "QWK1zHwkZr5Zu+ffdLwifVTYN7A2Jhe721oVL3xwtEzFcmqjzaHkGsVOpJVCYQy4fJakdBMHVsBoKSdK6hVmmg==",
+  "dgSpecHash": "0u73QqDWUUoP/nsq58o+U7XWaWqzedHFVrbRIdD8uKvuSCIiB0gR1uNmZ8oJ4aKDYMtYzDZ/m4tux/dX3Qy/6g==",
   "success": true,
-  "projectFilePath": "/home/prydaran/RiderProjects/LightningConstructs/Tests/Tests.vbproj",
+  "projectFilePath": "/home/prydaran/Documents/Rider/LightningConstructs/Tests/Tests.vbproj",
   "expectedPackageFiles": [
-    "/home/prydaran/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.10/microsoft.aspnetcore.app.ref.6.0.10.nupkg.sha512"
+    "/home/prydaran/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.11/microsoft.aspnetcore.app.ref.6.0.11.nupkg.sha512",
+    "/home/prydaran/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.11/microsoft.netcore.app.host.linux-x64.6.0.11.nupkg.sha512"
   ],
   "logs": []
 }

@@ -16,13 +16,8 @@
         End Sub
 
         Public Sub Limit()
-            If BaseSleepTarget.Ticks > 1000 Then
-                Threading.Thread.Sleep(BaseSleepTarget)
-            End If
-
-            Do
-            Loop While BaseGovernorWatch.ElapsedTicks < BaseTimeConstant
-
+            If BaseSleepTarget.Ticks > 1000 and UseExtremePrecision = False Then Threading.Thread.Sleep(BaseSleepTarget)
+            Do : Loop While BaseGovernorWatch.ElapsedTicks < BaseTimeConstant
             BaseDelta = BaseGovernorWatch.ElapsedTicks
             BaseGovernorWatch.Restart()
         End Sub

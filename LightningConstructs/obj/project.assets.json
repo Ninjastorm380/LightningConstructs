@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj",
+      "projectUniqueName": "/home/prydaran/Documents/Rider/LightningConstructs/LightningConstructs/LightningConstructs.vbproj",
       "projectName": "LightningConstructs",
-      "projectPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/LightningConstructs.vbproj",
+      "projectPath": "/home/prydaran/Documents/Rider/LightningConstructs/LightningConstructs/LightningConstructs.vbproj",
       "packagesPath": "/home/prydaran/.nuget/packages/",
-      "outputPath": "/home/prydaran/RiderProjects/LightningConstructs/LightningConstructs/obj/",
+      "outputPath": "/home/prydaran/Documents/Rider/LightningConstructs/LightningConstructs/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/prydaran/.nuget/NuGet/NuGet.Config"
@@ -229,11 +229,12 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.110/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
       }
     }
   }

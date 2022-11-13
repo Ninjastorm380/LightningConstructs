@@ -96,7 +96,7 @@ Public Class TestClient
                         Console.WriteLine("  Client: data integrity failed. Check code.")
                     End If
                     Console.WriteLine("  Client: writing out data...")
-                    If NewSocket.Write(BufferInTest, 0, 4, Net.Sockets.SocketFlags.None) > 0
+                    If NewSocket.Connected = True AndAlso NewSocket.Write(BufferInTest, 0, 4, Net.Sockets.SocketFlags.None) > 0
                         Console.WriteLine("  Client: Data written.")
                     Else
                         If NewSocket.Connected = False Then

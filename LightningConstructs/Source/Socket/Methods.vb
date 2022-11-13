@@ -49,27 +49,68 @@
             NetSocket.Disconnect(True)
         End Sub
 
-        Public Function Read(ByVal Buffer As Byte(), ByVal Offset As Int32, ByVal Length As Int32, ByVal Flags As Net.Sockets.SocketFlags) As Int32
-            If Connected = False Then
-                Return 0
-            End If
+        Public Function Read(ByRef Buffer As Byte(), ByVal Offset As Int32, ByVal Length As Int32, ByVal Flags As Net.Sockets.SocketFlags) As Int32
+            If NetSocket Is Nothing Then Return 0
+            If IsConnected = False Then Return 0
+            If NetSocket.Connected = False Then Return 0
 
             SyncLock ReadLock
-                Return NetSocket.Receive(Buffer, Offset, Length, Flags)
+                ReadRetryResult = 0
+                ReadRetryCounter = 0
+                ReadRetryCurrent = 0
+                ReadGovernor.Resume()
+                Do
+                    ReadRetryResult = NetSocket.Receive(Buffer, ReadRetryCounter + Offset, Length - ReadRetryCounter, Flags)
+                    ReadRetryCounter += ReadRetryResult
+                    If ReadRetryResult > 0 Then
+                        ReadRetryCurrent = 0.0
+                    Else 
+                        ReadRetryCurrent += ReadGovernor.IterationElapsed
+                        If ReadRetryCurrent >= ReadRetryMax Then
+                            ReadGovernor.Pause()
+                            Return ReadRetryCounter
+                        End If
+                    End If
+                    ReadGovernor.Limit()
+                Loop Until ReadRetryCounter = Length Or IsConnected = False
+                ReadGovernor.Pause()
+                Return ReadRetryCounter
             End SyncLock
+            
+            
+
         End Function
 
-        Public Function Write(ByVal Buffer As Byte(), ByVal Offset As Int32, ByVal Length As Int32, ByVal Flags As Net.Sockets.SocketFlags) As Int32
+        Public Function Write(ByRef Buffer As Byte(), ByVal Offset As Int32, ByVal Length As Int32, ByVal Flags As Net.Sockets.SocketFlags) As Int32
+            If NetSocket Is Nothing Then Return 0
+            If IsConnected = False Then Return 0
+            If NetSocket.Connected = False Then Return 0
             SyncLock WriteLock
-                If Connected = True Then 
+                WriteRetryResult = 0
+                WriteRetryCounter = 0
+                WriteRetryCurrent = 0
+                WriteGovernor.Resume()
+                Do 
                     Try
-                        Return NetSocket.Send(Buffer, Offset, Length, Flags)
+                        WriteRetryResult = NetSocket.Send(Buffer, WriteRetryCounter + Offset, Length - WriteRetryCounter, Flags)
                     Catch
-                        IsConnected = False
+                        WriteRetryResult = 0
                     End Try
-                End If
+                    WriteRetryCounter += WriteRetryResult
+                    If WriteRetryResult > 0 Then
+                        WriteRetryCurrent = 0.0
+                    Else 
+                        WriteRetryCurrent += WriteGovernor.IterationElapsed
+                        If WriteRetryCurrent >= WriteRetryMax Then
+                            WriteGovernor.Pause()
+                            Return WriteRetryCounter
+                        End If
+                    End If
+                    WriteGovernor.Limit()
+                Loop Until WriteRetryCounter = Length Or IsConnected = False
+                WriteGovernor.Pause()
+                Return WriteRetryCounter
             End SyncLock
-            Return 0
         End Function
 
         Private Sub AsyncListenerMethod()
