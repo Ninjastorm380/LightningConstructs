@@ -15,6 +15,9 @@ Public Partial Class Socket
                 Return IsListening
             End Get
         End Property
+        
+        Public Property RemoteEndpoint As Net.IPEndPoint
+        Public Property LocalEndpoint As Net.IPEndPoint
 
         Public ReadOnly Property Connected As System.Boolean
             Get

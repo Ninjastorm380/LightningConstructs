@@ -9,6 +9,12 @@
                 BaseSleepTarget = New TimeSpan(BaseTimeConstant - BaseSleepOffsetConstant)
             End Set
         End Property
+        Public ReadOnly Property Paused As Boolean
+            Get
+                Return IsPaused
+            End Get
+        End Property
+
         
         Public Property UseExtremePrecision As Boolean = False
 

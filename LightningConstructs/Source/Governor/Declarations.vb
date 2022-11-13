@@ -6,5 +6,6 @@
         Private ReadOnly BaseGovernorWatch As Stopwatch
         Private ReadOnly BaseSleepOffsetConstant As Int64
         Private BaseSleepTarget As TimeSpan
+        Private IsPaused As Boolean = False
     End Class
 

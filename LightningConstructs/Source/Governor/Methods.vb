@@ -9,10 +9,12 @@
         
         Public Sub Pause()
             BaseGovernorWatch.Stop()
+            IsPaused = True
         End Sub
         
         Public Sub [Resume]()
             BaseGovernorWatch.Start()
+            IsPaused = False
         End Sub
 
         Public Sub Limit()

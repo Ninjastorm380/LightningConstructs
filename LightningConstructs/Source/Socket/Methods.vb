@@ -1,4 +1,4 @@
-    Public Partial Class Socket
+    Public Partial Class Socket : Implements IDisposable
         Public Sub New()
             NetSocket.DualMode = True
             NetSocket.LingerState = New Net.Sockets.LingerOption(True, 30)
@@ -11,6 +11,8 @@
             NetSocket = BaseSocket
             NetSocket.LingerState = New Net.Sockets.LingerOption(True, 30)
             IsConnected = True
+            LocalEndPoint = CType(NetSocket.LocalEndPoint, Net.IPEndPoint)
+            RemoteEndPoint = CType(NetSocket.RemoteEndPoint, Net.IPEndPoint)
         End Sub
 
         Public Sub Connect(ByVal Endpoint As Net.IPEndPoint)
@@ -20,7 +22,8 @@
 
             NetSocket.Connect(Endpoint)
             IsConnected = True
-
+            LocalEndPoint = CType(NetSocket.LocalEndPoint, Net.IPEndPoint)
+            RemoteEndPoint = CType(NetSocket.RemoteEndPoint, Net.IPEndPoint)
             Dim AsyncThread As Threading.Thread = New Threading.Thread(Sub()
                 RaiseEvent SocketConnected(Me)
             End Sub)
@@ -57,22 +60,25 @@
                 ReadRetryResult = 0
                 ReadRetryCounter = 0
                 ReadRetryCurrent = 0
-                ReadGovernor.Resume()
+                If ReadGovernor.Paused = True Then ReadGovernor.Resume()
                 Do
                     ReadRetryResult = NetSocket.Receive(Buffer, ReadRetryCounter + Offset, Length - ReadRetryCounter, Flags)
                     ReadRetryCounter += ReadRetryResult
                     If ReadRetryResult > 0 Then
                         ReadRetryCurrent = 0.0
+                        If ReadGovernor.Paused = False Then ReadGovernor.Pause()
                     Else 
+                        If ReadGovernor.Paused = True Then ReadGovernor.Resume()
                         ReadRetryCurrent += ReadGovernor.IterationElapsed
                         If ReadRetryCurrent >= ReadRetryMax Then
-                            ReadGovernor.Pause()
+                            If ReadGovernor.Paused = False Then ReadGovernor.Pause()
                             Return ReadRetryCounter
                         End If
+                        ReadGovernor.Limit()
                     End If
-                    ReadGovernor.Limit()
+
                 Loop Until ReadRetryCounter = Length Or IsConnected = False
-                ReadGovernor.Pause()
+                If ReadGovernor.Paused = False Then ReadGovernor.Pause()
                 Return ReadRetryCounter
             End SyncLock
             
@@ -88,7 +94,7 @@
                 WriteRetryResult = 0
                 WriteRetryCounter = 0
                 WriteRetryCurrent = 0
-                WriteGovernor.Resume()
+                If WriteGovernor.Paused = True Then WriteGovernor.Resume()
                 Do 
                     Try
                         WriteRetryResult = NetSocket.Send(Buffer, WriteRetryCounter + Offset, Length - WriteRetryCounter, Flags)
@@ -98,16 +104,18 @@
                     WriteRetryCounter += WriteRetryResult
                     If WriteRetryResult > 0 Then
                         WriteRetryCurrent = 0.0
+                        If WriteGovernor.Paused = False Then WriteGovernor.Pause()
                     Else 
+                        If WriteGovernor.Paused = True Then WriteGovernor.Resume()
                         WriteRetryCurrent += WriteGovernor.IterationElapsed
                         If WriteRetryCurrent >= WriteRetryMax Then
-                            WriteGovernor.Pause()
+                            If WriteGovernor.Paused = False Then WriteGovernor.Pause()
                             Return WriteRetryCounter
                         End If
+                        WriteGovernor.Limit()
                     End If
-                    WriteGovernor.Limit()
                 Loop Until WriteRetryCounter = Length Or IsConnected = False
-                WriteGovernor.Pause()
+                If WriteGovernor.Paused = False Then WriteGovernor.Pause()
                 Return WriteRetryCounter
             End SyncLock
         End Function
@@ -125,5 +133,9 @@
                 End If
                 ListenerGovernor.Limit()
             Loop While IsListening
+        End Sub
+
+        Public Sub Dispose() Implements IDisposable.Dispose
+            NetSocket.Dispose()
         End Sub
     End Class
