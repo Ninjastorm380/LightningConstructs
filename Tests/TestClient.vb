@@ -4,7 +4,7 @@ Public Class TestClient
     Public Property Endpoint As Net.IPEndPoint
     Private Readonly Console As New AsyncConsole
     Public Sub New()
-        AddHandler Socket.ClientSocketConnected, AddressOf ConnectedEvent
+        AddHandler Socket.SocketConnected, AddressOf ConnectedEvent
     End Sub
     Public Sub Connect
         Socket.Connect(Endpoint)

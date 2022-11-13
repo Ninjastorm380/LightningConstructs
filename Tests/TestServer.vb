@@ -4,7 +4,7 @@ Public Class TestServer
     Public Property Endpoint As Net.IPEndPoint
     Private Readonly Console As New AsyncConsole
     Public Sub New()
-        AddHandler Socket.ServerSocketConnected, AddressOf ConnectedEvent
+        AddHandler Socket.SocketConnected, AddressOf ConnectedEvent
     End Sub
     Public Sub Start
         Socket.Listen(Endpoint)

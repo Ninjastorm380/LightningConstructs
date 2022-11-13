@@ -5,8 +5,7 @@
         End Sub
 
         Public Delegate Sub SocketConnectedHandler(ByVal NewSocket As Socket)
-        Public Event ServerSocketConnected As SocketConnectedHandler
-        Public Event ClientSocketConnected As SocketConnectedHandler
+        Public Event SocketConnected As SocketConnectedHandler
 
         Private Sub HookupSocket(ByVal BaseSocket As Net.Sockets.Socket)
             NetSocket = BaseSocket
@@ -22,8 +21,8 @@
             NetSocket.Connect(Endpoint)
             IsConnected = True
 
-            Dim AsyncThread As Threading.Thread = New Threading.Thread(Sub(AsyncThreadMethod)
-                RaiseEvent ClientSocketConnected(Me)
+            Dim AsyncThread As Threading.Thread = New Threading.Thread(Sub()
+                RaiseEvent SocketConnected(Me)
             End Sub)
             AsyncThread.Start()
         End Sub
@@ -119,8 +118,8 @@
                     Dim NewSocketBase = NetSocket.Accept()
                     Dim NewSocket = New Socket()
                     NewSocket.HookupSocket(NewSocketBase)
-                    Dim AsyncThread As System.Threading.Thread = New Threading.Thread(Sub(AsyncThreadMethod)
-                        RaiseEvent ServerSocketConnected(NewSocket)
+                    Dim AsyncThread As System.Threading.Thread = New Threading.Thread(Sub()
+                        RaiseEvent SocketConnected(NewSocket)
                     End Sub)
                     AsyncThread.Start()
                 End If
