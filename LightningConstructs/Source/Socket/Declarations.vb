@@ -7,15 +7,16 @@
         
         Private ReadOnly ReadGovernor As Governor = New Governor(30)
         Private ReadOnly ReadLock As System.Object = New System.Object()
-        Private ReadRetryResult As Int32 = 0.0
-        Private ReadRetryCounter As Int32 = 0.0
+        Private ReadRetryResult As UInt32 = 0
+        Private ReadRetryCounter As UInt32 = 0
         Private ReadRetryCurrent As Double = 0.0
         Private ReadRetryMax As Double = 10.0
+        Private ReadAvailableSnapshot As UInt32 = 0
         
         Private ReadOnly WriteGovernor As Governor = New Governor(30)
         Private ReadOnly WriteLock As System.Object = New System.Object()
-        Private WriteRetryResult As Int32 = 0.0
-        Private WriteRetryCounter As Int32 = 0.0
+        Private WriteRetryResult As UInt32 = 0
+        Private WriteRetryCounter As UInt32 = 0
         Private WriteRetryCurrent As Double = 0.0
         Private WriteRetryMax As Double = 10.0
 

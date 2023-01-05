@@ -1,5 +1,5 @@
     Public Partial Class Governor
-        Public Sub New(ByVal Optional Rate As System.Double = 100.0)
+        Public Sub New(ByVal Optional Rate As Double = 100.0)
             BaseRate = Rate
             BaseSleepOffsetConstant = TimeSpan.TicksPerMillisecond / 10
             BaseTimeConstant = TimeSpan.TicksPerMillisecond * CLng((1000.0 / BaseRate))
@@ -9,18 +9,21 @@
         
         Public Sub Pause()
             BaseGovernorWatch.Stop()
-            IsPaused = True
         End Sub
         
         Public Sub [Resume]()
             BaseGovernorWatch.Start()
-            IsPaused = False
         End Sub
 
         Public Sub Limit()
-            If BaseSleepTarget.Ticks > 1000 and UseExtremePrecision = False Then Threading.Thread.Sleep(BaseSleepTarget)
-            Do : Loop While BaseGovernorWatch.ElapsedTicks < BaseTimeConstant
+            TimeTemp = BaseSleepTarget.Ticks - (BaseGovernorWatch.ElapsedTicks + 1000)
+            If TimeTemp > 1000 Then
+                Threading.Thread.Sleep(BaseSleepTarget)
+            End If
+            Do While BaseGovernorWatch.ElapsedTicks <= BaseTimeConstant
+            Loop 
             BaseDelta = BaseGovernorWatch.ElapsedTicks
             BaseGovernorWatch.Restart()
+
         End Sub
     End Class

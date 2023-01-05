@@ -50,5 +50,16 @@
         Public Function Contains(ByVal Key As TKey) As Boolean
             Return Search(Key) <> -1
         End Function
+        
+        Private Sub BlockCopyKeys(ByRef InputBuffer As TKey(), ByVal InputBufferOffset As Int32, ByRef OutputBuffer As TKey(), ByVal OutputBufferOffset As UInt32, ByVal Count As UInt32)
+            For Index As Int32 = InputBufferOffset To InputBufferOffset + Count - 1
+                OutputBuffer((Index - InputBufferOffset) + OutputBufferOffset) = InputBuffer(Index)
+            Next
+        End Sub
+        Private Sub BlockCopyValues(ByRef InputBuffer As TValue(), ByVal InputBufferOffset As Int32, ByRef OutputBuffer As TValue(), ByVal OutputBufferOffset As UInt32, ByVal Count As UInt32)
+            For Index As Int32 = InputBufferOffset To InputBufferOffset + Count - 1
+                OutputBuffer((Index - InputBufferOffset) + OutputBufferOffset) = InputBuffer(Index)
+            Next
+        End Sub
     End Class
 

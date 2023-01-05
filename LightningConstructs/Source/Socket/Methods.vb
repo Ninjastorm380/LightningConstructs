@@ -62,14 +62,24 @@
                 ReadRetryCurrent = 0
                 If ReadGovernor.Paused = True Then ReadGovernor.Resume()
                 Do
-                    ReadRetryResult = NetSocket.Receive(Buffer, ReadRetryCounter + Offset, Length - ReadRetryCounter, Flags)
+                    ReadAvailableSnapshot = NetSocket.Available
+                    If ReadAvailableSnapshot > 0 Then
+                        If ReadAvailableSnapshot < Length Then
+                            ReadRetryResult = NetSocket.Receive(Buffer, ReadRetryCounter + Offset, ReadAvailableSnapshot - ReadRetryCounter, Flags)
+                        Else
+                            ReadRetryResult = NetSocket.Receive(Buffer, ReadRetryCounter + Offset, Length - ReadRetryCounter, Flags)
+                        End If
+                    Else
+                        ReadRetryResult = 0
+                    End If
+
                     ReadRetryCounter += ReadRetryResult
                     If ReadRetryResult > 0 Then
                         ReadRetryCurrent = 0.0
                         If ReadGovernor.Paused = False Then ReadGovernor.Pause()
                     Else 
                         If ReadGovernor.Paused = True Then ReadGovernor.Resume()
-                        ReadRetryCurrent += ReadGovernor.IterationElapsed
+                        ReadRetryCurrent += ReadGovernor.Elapsed
                         If ReadRetryCurrent >= ReadRetryMax Then
                             If ReadGovernor.Paused = False Then ReadGovernor.Pause()
                             Return ReadRetryCounter
@@ -107,7 +117,7 @@
                         If WriteGovernor.Paused = False Then WriteGovernor.Pause()
                     Else 
                         If WriteGovernor.Paused = True Then WriteGovernor.Resume()
-                        WriteRetryCurrent += WriteGovernor.IterationElapsed
+                        WriteRetryCurrent += WriteGovernor.Elapsed
                         If WriteRetryCurrent >= WriteRetryMax Then
                             If WriteGovernor.Paused = False Then WriteGovernor.Pause()
                             Return WriteRetryCounter

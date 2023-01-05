@@ -7,5 +7,6 @@
         Private ReadOnly BaseSleepOffsetConstant As Int64
         Private BaseSleepTarget As TimeSpan
         Private IsPaused As Boolean = False
+        Private TimeTemp As Long
     End Class
 

@@ -4,6 +4,18 @@
                 Return FreePointer - ReclaimedCount
             End Get
         End Property
+        
+        Public Readonly Property Keys As TKey()
+            Get
+                Return BaseKeysArray
+            End Get
+        End Property
+        Public Readonly Property Values As TValue()
+            Get
+                Return BaseValuesArray
+            End Get
+        End Property
+
 
         Default Public Property Item(ByVal Key As TKey) As TValue
             Get
