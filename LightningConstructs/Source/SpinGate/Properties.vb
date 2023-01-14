@@ -5,6 +5,7 @@
             End Get
             Set(ByVal value As Double)
                 BaseRate = value
+                BaseWaitFrequencyMultiplyer = value / 10
             End Set
         End Property
     End Class

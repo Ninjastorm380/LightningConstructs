@@ -60,7 +60,6 @@
                 ReadRetryResult = 0
                 ReadRetryCounter = 0
                 ReadRetryCurrent = 0
-                If ReadGovernor.Paused = True Then ReadGovernor.Resume()
                 Do
                     ReadAvailableSnapshot = NetSocket.Available
                     If ReadAvailableSnapshot > 0 Then
@@ -76,19 +75,14 @@
                     ReadRetryCounter += ReadRetryResult
                     If ReadRetryResult > 0 Then
                         ReadRetryCurrent = 0.0
-                        If ReadGovernor.Paused = False Then ReadGovernor.Pause()
                     Else 
-                        If ReadGovernor.Paused = True Then ReadGovernor.Resume()
-                        ReadRetryCurrent += ReadGovernor.Elapsed
+                        ReadRetryCurrent += ReadGovernor.Delta
                         If ReadRetryCurrent >= ReadRetryMax Then
-                            If ReadGovernor.Paused = False Then ReadGovernor.Pause()
                             Return ReadRetryCounter
                         End If
-                        ReadGovernor.Limit()
                     End If
-
+                    ReadGovernor.Limit()
                 Loop Until ReadRetryCounter = Length Or IsConnected = False
-                If ReadGovernor.Paused = False Then ReadGovernor.Pause()
                 Return ReadRetryCounter
             End SyncLock
             
@@ -104,7 +98,6 @@
                 WriteRetryResult = 0
                 WriteRetryCounter = 0
                 WriteRetryCurrent = 0
-                If WriteGovernor.Paused = True Then WriteGovernor.Resume()
                 Do 
                     Try
                         WriteRetryResult = NetSocket.Send(Buffer, WriteRetryCounter + Offset, Length - WriteRetryCounter, Flags)
@@ -114,18 +107,15 @@
                     WriteRetryCounter += WriteRetryResult
                     If WriteRetryResult > 0 Then
                         WriteRetryCurrent = 0.0
-                        If WriteGovernor.Paused = False Then WriteGovernor.Pause()
                     Else 
-                        If WriteGovernor.Paused = True Then WriteGovernor.Resume()
-                        WriteRetryCurrent += WriteGovernor.Elapsed
-                        If WriteRetryCurrent >= WriteRetryMax Then
-                            If WriteGovernor.Paused = False Then WriteGovernor.Pause()
+                        WriteRetryCurrent += WriteGovernor.Delta
+                        If WriteRetryCurrent >= WriteRetryMax Then 
                             Return WriteRetryCounter
                         End If
-                        WriteGovernor.Limit()
+
                     End If
+                    WriteGovernor.Limit()
                 Loop Until WriteRetryCounter = Length Or IsConnected = False
-                If WriteGovernor.Paused = False Then WriteGovernor.Pause()
                 Return WriteRetryCounter
             End SyncLock
         End Function

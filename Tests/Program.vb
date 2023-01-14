@@ -1,5 +1,6 @@
 Imports Lightning
 Module Program
+    Private spintest As new SpinGate(Of String)(1000)
     Private TC As New TestClient
     Private TS AS New TestServer
     Private TestEndpoint As New Net.IPEndPoint(Net.IPAddress.Parse("0.0.0.0"),55630)
@@ -42,6 +43,22 @@ Module Program
         Console.WriteLine(ModdedConfiguration.ToString())
         Console.WriteLine("")
         
+        Console.WriteLine("Testing SpinLock. this should timeout after 3000ms...")
+        Dim duration as Stopwatch = Stopwatch.StartNew()
+        Try
+            spintest.Lock(3000)
+        Catch ex as Exception
+            Console.WriteLine(ex.Message & " - duration: " & duration.ElapsedMilliseconds & "ms")
+        End Try
+        duration.Stop()
+        
+        If duration.ElapsedMilliseconds < 3000 Then 
+            Console.WriteLine("Spingate lock ended prematurely! Took " & duration.ElapsedMilliseconds & "ms, expected 3000ms!")
+            Console.WriteLine("Halting tests...")
+            Exit Sub
+        End If
+        
+        duration = Nothing
         
         TC.Endpoint = TestEndpoint
         TS.Endpoint = TestEndpoint

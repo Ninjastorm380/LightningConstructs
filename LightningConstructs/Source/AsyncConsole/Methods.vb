@@ -1,6 +1,6 @@
 Public Partial Class AsyncConsole
     Public Sub New(Optional Rate As Double = 20.0)
-        FlushGovernor.Rate = Rate
+        FlushGovernor.Frequency = Rate
         SyncLock FlushLock
             If BufferEngineExists = False Then
                 Dim AsyncThread As New Threading.Thread( AddressOf FlushEngine)
