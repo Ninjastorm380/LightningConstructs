@@ -37,7 +37,7 @@ Public Module BinaryMethods
         Dim Second As Int32 = BitConverter.ToInt32(Buffer, Offset + 20)
         Dim Millisecond As Int32 = BitConverter.ToInt32(Buffer, Offset + 24)
         Return New DateTime(Year, Month, Day, Hour, Minute, Second, Millisecond)
-    End Sub
+    End Function
     
     Public Sub PackUInt32(Byref Buffer as Byte(), Byval Offset as Int32, Byref Data as UInt32)
          System.Buffer.BlockCopy(BitConverter.GetBytes(Data), 0, Buffer, Offset, 4)
@@ -49,7 +49,7 @@ Public Module BinaryMethods
     
     Public Function UnpackUInt32(Byref Buffer as Byte(), Byval Offset as Int32) As UInt32
         Return BitConverter.ToUInt32(Buffer, Offset)
-    End Sub
+    End Function
     
     Public Function BinaryCompare(A as Byte(), B As Byte(), Offset As UInt32, Length As UInt32) As Boolean
          If Length - Offset < 0 Then Return False
