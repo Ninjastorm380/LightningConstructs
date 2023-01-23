@@ -1,24 +1,15 @@
     Public Partial Class SpinGate(Of T)
-        Public Sub New(ByVal Optional Rate As System.Double = 20.0)
-            BaseRate = Rate
-            SyncGovernor = New Governor(Rate)
-            BaseWaitFrequencyMultiplyer = BaseRate / 10
+        Public Sub New()
+            Spinwatch = New Stopwatch()
         End Sub
 
-        Public Function Lock(ByVal Optional TimeoutMS As Int32 = 0) As T
-            BaseTimeoutLimit = TimeoutMS * BaseWaitFrequencyMultiplyer
-            BaseTimeoutCounter = 0
+        Public Function Lock(ByVal Optional TimeoutLimit As UInt32 = 0) As T
             If BaseReturnCalledEarlyFlag = False Then
                 BaseReturnFlag = False
-                Do
-                    If BaseTimeoutLimit > 0.0 Then
-                        BaseTimeoutCounter += SyncGovernor.Delta
-                        If BaseTimeoutCounter >= BaseTimeoutLimit Then
-                            Throw New TimeoutException("SpinGate timed out!")
-                        End If
-                    End If
-                    SyncGovernor.Limit()
-                Loop While BaseReturnFlag = False
+                Spinwatch.Restart()
+                Do Until BaseReturnFlag = True Or Spinwatch.ElapsedMilliseconds >= TimeoutLimit : Loop 
+                Spinwatch.Stop()
+                If BaseReturnFlag = False Then Throw New TimeoutException("SpinGate timed out!")
             End If
 
             BaseReturnCalledEarlyFlag = False

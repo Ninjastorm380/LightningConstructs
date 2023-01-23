@@ -30,6 +30,10 @@
             WritePointer = WritePointer - Amount
         End Sub
         
+        Public Sub Seek(ByVal Amount As UInt32)
+            WritePointer = Amount
+        End Sub
+        
         Public Sub Clear()
             Shift(Length)
         End Sub

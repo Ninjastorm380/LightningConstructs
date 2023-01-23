@@ -4,4 +4,5 @@ Public Partial Class QueueStream(Of T)
             Return WritePointer
         End Get
     End Property
+    Public Property Position As UInt32
 End Class

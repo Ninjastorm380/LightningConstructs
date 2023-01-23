@@ -25,9 +25,13 @@ Public Partial Class Socket
                 If IsConnected = False Then Return False
                 If NetSocket.Connected = False Then Return False
                 SyncLock ReadLock
-                    Dim DataAvailable = NetSocket.Poll(0, Net.Sockets.SelectMode.SelectRead)
-                    Dim DataNotAvailable = (NetSocket.Available = 0)
-                    IsConnected = Not (DataAvailable = True AndAlso DataNotAvailable = True)
+                    Try 
+                        Dim DataAvailable = NetSocket.Poll(0, Net.Sockets.SelectMode.SelectRead)
+                        Dim DataNotAvailable = (NetSocket.Available = 0)
+                        IsConnected = Not (DataAvailable = True AndAlso DataNotAvailable = True)
+                    Catch neterror as Net.Sockets.SocketException
+                        IsConnected = False
+                    End Try
                     Return IsConnected
                 End SyncLock
             End Get

@@ -5,7 +5,6 @@ Public Partial Class Governor
         End Get
         Set
             BaseFrequency = Value
-            WaitTimespan = New TimeSpan(10000000/BaseFrequency)
         End Set
     End Property
     

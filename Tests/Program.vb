@@ -1,6 +1,6 @@
 Imports Lightning
 Module Program
-    Private spintest As new SpinGate(Of String)(1000)
+    Private spintest As new SpinGate(Of String)
     Private TC As New TestClient
     Private TS AS New TestServer
     Private TestEndpoint As New Net.IPEndPoint(Net.IPAddress.Parse("0.0.0.0"),55630)
