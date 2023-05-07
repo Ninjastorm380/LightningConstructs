@@ -98,7 +98,11 @@ Public Partial Class Socket
         If IsConnected = False Then Return 0
         Dim TotalBytesWritten As Long
         SyncLock WriteLock
-            TotalBytesWritten = NetSocket.Send(Buffer,  Offset, Length, Flags)
+            Try
+                TotalBytesWritten = NetSocket.Send(Buffer,  Offset, Length, Flags)
+            Catch NetException As Net.Sockets.SocketException
+                TotalBytesWritten = 0
+            End Try
         End SyncLock
         Return TotalBytesWritten
     End Function
