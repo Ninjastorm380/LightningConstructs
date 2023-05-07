@@ -59,13 +59,16 @@ Public Class TestServer
     End Sub
     
 Private Sub ConnectedEvent(NewSocket As Socket)
-        Console.WriteLine("  Client: Connected.")
+        Console.WriteLine("  Server: Connected.")
         Dim Governor as new Governor(1000)
         Dim BufferIn(3) As Byte
         Dim BufferInTest As Byte() = {1,2,3,4}
         Dim Trip As Boolean = False
-        NewSocket.Write(BufferInTest, 0, 4, Net.Sockets.SocketFlags.None)
-        While NewSocket.Connected = True
+    Console.WriteLine("  Server: Writing test data.")
+    NewSocket.Write(BufferInTest, 0, 4, Net.Sockets.SocketFlags.None)
+    Console.WriteLine("  Server: Test data written.")
+        While NewSocket.Connected = True And Socket.Listening = True
+            Debug.Print("  Server: Available bytes - " & NewSocket.Available)
             If NewSocket.Available > 0 Then
                 BufferIn(0) = 0
                 BufferIn(1) = 0

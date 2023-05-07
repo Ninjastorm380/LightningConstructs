@@ -18,25 +18,28 @@ Public Partial Class Socket
         LocalEndPoint = CType(NetSocket.LocalEndPoint, Net.IPEndPoint)
         RemoteEndPoint = CType(NetSocket.RemoteEndPoint, Net.IPEndPoint)
         IsConnected = True
+        BaseClientBound = False
     End Sub
+    
 
-    <MethodImpl(MethodImplOptions.Synchronized)>
+    
+    Private Sub AsyncSocketConnectedMethod(Socket As Socket)
+        RaiseEvent SocketConnected(Socket)
+    End Sub
+    
     Public Sub Connect(ByVal Endpoint As Net.IPEndPoint)
         If IsBaseDisposed = True Then
             NetSocket = New Net.Sockets.Socket(Net.Sockets.SocketType.Stream, Net.Sockets.ProtocolType.Tcp)
         End If
-
+        BaseClientBound = True
         NetSocket.Connect(Endpoint)
         IsConnected = True
         LocalEndPoint = CType(NetSocket.LocalEndPoint, Net.IPEndPoint)
         RemoteEndPoint = CType(NetSocket.RemoteEndPoint, Net.IPEndPoint)
-        Dim AsyncThread As Threading.Thread = New Threading.Thread(Sub()
-            RaiseEvent SocketConnected(Me)
-        End Sub)
-        AsyncThread.Start()
+        Dim AsyncThread As Threading.Thread = New Threading.Thread(AddressOf AsyncSocketConnectedMethod)
+        AsyncThread.Start(Me)
     End Sub
-
-    <MethodImpl(MethodImplOptions.Synchronized)>
+    
     Public Sub Disconnect()
         IsConnected = False
         NetSocket.Shutdown(Net.Sockets.SocketShutdown.Both)
@@ -44,96 +47,60 @@ Public Partial Class Socket
         NetSocket.Dispose()
         IsBaseDisposed = True
     End Sub
-
-    <MethodImpl(MethodImplOptions.Synchronized)>
+    
     Public Sub Listen(ByVal Endpoint As Net.IPEndPoint)
         NetSocket.Bind(Endpoint)
         NetSocket.Listen(100)
         IsListening = True
+        BaseClientBound = False
         Dim AsyncListener = New Threading.Thread(AddressOf AsyncListenerMethod)
         AsyncListener.Start()
     End Sub
-
-    <MethodImpl(MethodImplOptions.Synchronized)>
+    
     Public Sub Deafen()
         IsListening = False
         NetSocket.Disconnect(True)
     End Sub
 
-    <MethodImpl(MethodImplOptions.Synchronized)>
-    Public Function Read(ByRef Buffer As Byte(), ByVal Offset As Int32, ByVal Length As Int32,
-                         ByVal Flags As Net.Sockets.SocketFlags) As Int32
+
+    Public Function Read(ByRef Buffer As Byte(), ByVal Offset As Int32, ByVal Length As Int32, ByVal Flags As Net.Sockets.SocketFlags) As Int32
         If NetSocket Is Nothing Then Return 0
         If IsConnected = False Then Return 0
-        If NetSocket.Connected = False Then Return 0
+        
+        Dim BytesAvailable As Long = NetSocket.Available
+        Dim BytesRead As Long
+        Dim TotalBytesRead As Long
+        Dim TimeoutMS As Long = 1000
+        
         ReadTimeoutStopwatch.Restart()
-
-
-        ReadRetryCounter = 0
-        Do
-            ReadRetryResult = 0
-            ReadAvailableSnapshot = NetSocket.Available
-            If ReadAvailableSnapshot > 0 Then
+        If BytesAvailable >= Length Then
+            Do
                 SyncLock ReadLock
-                    If ReadAvailableSnapshot < Length Then
-                        Try
-                            ReadRetryResult = NetSocket.Receive(Buffer, ReadRetryCounter + Offset, ReadAvailableSnapshot - ReadRetryCounter, Flags)
-                        Catch neterror as Net.Sockets.SocketException
-                            ReadRetryResult = 0
-                            Disconnect()
-                            Exit Do
-                        End Try
-                    Else
-                        Try
-                            ReadRetryResult = NetSocket.Receive(Buffer, ReadRetryCounter + Offset, Length - ReadRetryCounter, Flags)
-                        Catch neterror as Net.Sockets.SocketException
-                            ReadRetryResult = 0
-                            Disconnect()
-                            Exit Do
-                        End Try
-                    End If
+                    BytesRead = NetSocket.Receive(Buffer, TotalBytesRead + Offset, Length - TotalBytesRead, Flags)
                 End SyncLock
-                ReadTimeoutStopwatch.Restart()
-            End If
-            ReadRetryCounter += ReadRetryResult
-        Loop _
-            Until _
-                ReadRetryCounter = Length Or IsConnected = False Or
-                ReadTimeoutStopwatch.ElapsedMilliseconds >= ReadRetryMax
+                TotalBytesRead += BytesRead
+            Loop Until ReadTimeoutStopwatch.ElapsedMilliseconds >= TimeoutMS Or TotalBytesRead >= Length Or IsConnected = False
+        Else
+            Do
+                SyncLock ReadLock
+                    BytesRead = NetSocket.Receive(Buffer, TotalBytesRead + Offset, BytesAvailable - TotalBytesRead, Flags)
+                End SyncLock
+                TotalBytesRead += BytesRead
+            Loop Until ReadTimeoutStopwatch.ElapsedMilliseconds >= TimeoutMS Or TotalBytesRead >= Length Or IsConnected = False
+        End If
         ReadTimeoutStopwatch.Stop()
-        Return ReadRetryCounter
+        
+        Return TotalBytesRead
     End Function
-
-    <MethodImpl(MethodImplOptions.Synchronized)>
-    Public Function Write(ByRef Buffer As Byte(), ByVal Offset As Int32, ByVal Length As Int32,
-                          ByVal Flags As Net.Sockets.SocketFlags) As Int32
+    
+    Public Function Write(ByRef Buffer As Byte(), ByVal Offset As Int32, ByVal Length As Int32, ByVal Flags As Net.Sockets.SocketFlags) As Int32
         If NetSocket Is Nothing Then Return 0
         If IsConnected = False Then Return 0
-        If NetSocket.Connected = False Then Return 0
-        WriteTimeoutStopwatch.Restart()
-
-
-        WriteRetryCounter = 0
-        Do
-            WriteRetryResult = 0
-            SyncLock WriteLock
-                Try
-                    WriteRetryResult = NetSocket.Send(Buffer, WriteRetryCounter + Offset, Length - WriteRetryCounter,
-                                                      Flags)
-                    WriteTimeoutStopwatch.Restart()
-                Catch neterror as Net.Sockets.SocketException
-                    WriteRetryResult = 0
-                    Disconnect()
-                    Exit Do
-                End Try
-            End SyncLock
-            WriteRetryCounter += WriteRetryResult
-        Loop _
-            Until _
-                WriteRetryCounter = Length Or IsConnected = False Or
-                WriteTimeoutStopwatch.ElapsedMilliseconds >= WriteRetryMax
-        WriteTimeoutStopwatch.Stop()
-        Return WriteRetryCounter
+        Dim TotalBytesWritten As Long
+        SyncLock WriteLock
+            TotalBytesWritten = NetSocket.Send(Buffer,  Offset, Length, Flags)
+        End SyncLock
+        Return TotalBytesWritten
     End Function
 
     Private Sub AsyncListenerMethod()
@@ -142,10 +109,8 @@ Public Partial Class Socket
                 Dim NewSocketBase = NetSocket.Accept()
                 Dim NewSocket = New Socket()
                 NewSocket.HookupSocket(NewSocketBase)
-                Dim AsyncThread As System.Threading.Thread = New Threading.Thread(Sub()
-                    RaiseEvent SocketConnected(NewSocket)
-                End Sub)
-                AsyncThread.Start()
+                Dim AsyncThread As System.Threading.Thread = New Threading.Thread(AddressOf AsyncSocketConnectedMethod)
+                AsyncThread.Start(NewSocket)
             End If
             ListenerGovernor.Limit()
         Loop While IsListening

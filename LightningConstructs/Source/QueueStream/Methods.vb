@@ -29,6 +29,10 @@
             If WritePointer - Amount > 0 Then BlockCopy(BaseBuffer, Amount, BaseBuffer, 0, WritePointer - Amount)
             WritePointer = WritePointer - Amount
         End Sub
+        Public Sub ShiftOne()
+            If WritePointer - 1 > 0 Then BlockCopy(BaseBuffer, 1, BaseBuffer, 0, WritePointer - 1)
+            WritePointer = WritePointer - 1
+        End Sub
         
         Public Sub Seek(ByVal Amount As UInt32)
             WritePointer = Amount

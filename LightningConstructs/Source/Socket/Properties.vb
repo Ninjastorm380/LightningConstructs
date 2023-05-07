@@ -1,4 +1,4 @@
-    Imports System.Threading
+    Imports System.Runtime.CompilerServices
 
 Public Partial Class Socket
         Public ReadOnly Property Available As Int32
@@ -10,15 +10,21 @@ Public Partial Class Socket
             End Get
         End Property
 
-        Public ReadOnly Property Listening As System.Boolean
+        Public ReadOnly Property Listening As Boolean
             Get
                 Return IsListening
             End Get
         End Property
         
+        Public Readonly Property ClientBound As Boolean
+            Get
+                Return BaseClientBound
+            End get
+        End Property
+        
         Public Property RemoteEndpoint As Net.IPEndPoint
         Public Property LocalEndpoint As Net.IPEndPoint
-
+        
         Public ReadOnly Property Connected As System.Boolean
             Get
                 If NetSocket Is Nothing Then Return False
@@ -26,8 +32,8 @@ Public Partial Class Socket
                 If NetSocket.Connected = False Then Return False
                 SyncLock ReadLock
                     Try 
-                        Dim DataAvailable = NetSocket.Poll(0, Net.Sockets.SelectMode.SelectRead)
-                        Dim DataNotAvailable = (NetSocket.Available = 0)
+                        DataAvailable = NetSocket.Poll(0, Net.Sockets.SelectMode.SelectRead)
+                        DataNotAvailable = (NetSocket.Available = 0)
                         IsConnected = Not (DataAvailable = True AndAlso DataNotAvailable = True)
                     Catch neterror as Net.Sockets.SocketException
                         IsConnected = False

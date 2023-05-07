@@ -1,15 +1,14 @@
 Public Partial Class Governor
-    Public Sub New(Optional Frequency As UInt16 = 60)
+    Public Sub New(Optional Frequency As Double = 60)
         BaseFrequency = Frequency
-        DeltaTicks = 0
-        BaseDelta = 0
+        BaseFrequencyTicks = (TimeSpan.TicksPerMillisecond * (1000/BaseFrequency))
+        DeltaTicks = BaseFrequencyTicks
         GovernorWatch = Stopwatch.StartNew()
     End Sub
     
     Public Sub Limit()
-        BaseDelta = DeltaTicks / 10000
-        Do Until GovernorWatch.ElapsedTicks >= 10000000/BaseFrequency
-        Loop 
+        Do Until GovernorWatch.ElapsedTicks >= BaseFrequencyTicks
+        Loop
         DeltaTicks = GovernorWatch.ElapsedTicks
         GovernorWatch.Restart()
     End Sub

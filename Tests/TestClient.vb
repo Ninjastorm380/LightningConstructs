@@ -12,7 +12,7 @@ Public Class TestClient
     Public Sub Disconnect
         Socket.Disconnect()
     End Sub
-    Public Sub TestReusability()
+    Public Sub Test()
         
         Console.WriteLine("Testing client socket reusability...")
         Console.WriteLine("Connecting client socket...")
@@ -63,8 +63,11 @@ Public Class TestClient
         Dim BufferIn(3) As Byte
         Dim BufferInTest As Byte() = {1,2,3,4}
         Dim Trip As Boolean = False
+        Console.WriteLine("  Client: Writing test data.")
         NewSocket.Write(BufferInTest, 0, 4, Net.Sockets.SocketFlags.None)
+        Console.WriteLine("  Client: Test data written.")
         While NewSocket.Connected = True
+            Debug.Print("  Client: Available bytes - " & NewSocket.Available)
             If NewSocket.Available > 0 Then
                 BufferIn(0) = 0
                 BufferIn(1) = 0
