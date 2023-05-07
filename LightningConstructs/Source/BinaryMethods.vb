@@ -25,6 +25,10 @@ Public Module BinaryMethods
         Dim Minute As Int32 = BitConverter.ToInt32(Buffer, Offset + 16)
         Dim Second As Int32 = BitConverter.ToInt32(Buffer, Offset + 20)
         Dim Millisecond As Int32 = BitConverter.ToInt32(Buffer, Offset + 24)
+        If Year = 0 Or Month = 0 Or Day = 0 then
+            Data = DateTime.UtcNow
+            Return
+        End If
         Data = New DateTime(Year, Month, Day, Hour, Minute, Second, Millisecond)
     End Sub
     
@@ -36,6 +40,7 @@ Public Module BinaryMethods
         Dim Minute As Int32 = BitConverter.ToInt32(Buffer, Offset + 16)
         Dim Second As Int32 = BitConverter.ToInt32(Buffer, Offset + 20)
         Dim Millisecond As Int32 = BitConverter.ToInt32(Buffer, Offset + 24)
+        If Year = 0 Or Month = 0 Or Day = 0 Then Return DateTime.UtcNow
         Return New DateTime(Year, Month, Day, Hour, Minute, Second, Millisecond)
     End Function
     

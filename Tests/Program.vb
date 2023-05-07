@@ -64,7 +64,7 @@ Module Program
         TS.Endpoint = TestEndpoint
         TS.Test()
         TS.Start()
-        TC.TestReusability()
+        TC.Test()
         TS.Stop()
         Console.WriteLine("All tests complete.")
     End Sub
