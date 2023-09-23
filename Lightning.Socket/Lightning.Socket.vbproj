@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>Lightning</RootNamespace>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <OptionStrict>On</OptionStrict>
+    </PropertyGroup>
+
+
+
+
+
+</Project>

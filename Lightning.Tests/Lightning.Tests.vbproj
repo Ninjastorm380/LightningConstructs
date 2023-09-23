@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>Lightning.Tests</RootNamespace>
+        <TargetFramework>net7.0</TargetFramework>
+        <OptionStrict>On</OptionStrict>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Lightning.Governor\Lightning.Governor.vbproj" />
+      <ProjectReference Include="..\Lightning.INIFile\Lightning.INIFile.vbproj" />
+      <ProjectReference Include="..\Lightning.KeyExchange\Lightning.KeyExchange.vbproj" />
+      <ProjectReference Include="..\Lightning.LambdaThread\Lightning.LambdaThread.vbproj" />
+      <ProjectReference Include="..\Lightning.QueueStream\Lightning.QueueStream.vbproj" />
+      <ProjectReference Include="..\Lightning.Random\Lightning.Random.vbproj" />
+      <ProjectReference Include="..\Lightning.Socket\Lightning.Socket.vbproj" />
+      <ProjectReference Include="..\Lightning.SpinGate\Lightning.SpinGate.vbproj" />
+    </ItemGroup>
+
+</Project>
