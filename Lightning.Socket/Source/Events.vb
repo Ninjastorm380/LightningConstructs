@@ -1,7 +1,9 @@
-Public Partial Class Socket
-    Public Event OnConnect As SocketHandler
-    Public Event OnDisconnect As SocketHandler
+Namespace Lightning
+    Public Partial Class Socket
+        Public Event OnConnect As SocketHandler
+        Public Event OnDisconnect As SocketHandler
     
-    Public Event OnListen As SocketHandler
-    Public Event OnDeafen As SocketHandler
-End Class
+        Public Event OnListen As SocketHandler
+        Public Event OnDeafen As SocketHandler
+    End Class
+End Namespace

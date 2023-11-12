@@ -1,3 +1,4 @@
+Namespace Lightning
     Public Partial Class QueueStream(Of T) : Implements IDisposable
         Public Sub New(ByVal Optional Capacity As Int32 = 65536)
             BaseBuffer = New T(Capacity - 1) {}
@@ -61,3 +62,4 @@
             End If
         End Sub
     End Class
+End Namespace

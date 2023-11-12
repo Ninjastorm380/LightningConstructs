@@ -18,6 +18,12 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Lightning.Random", "Lightni
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Lightning.KeyExchange", "Lightning.KeyExchange\Lightning.KeyExchange.vbproj", "{FECA52E0-C389-45D1-854C-24E407E7901D}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Lightning.Log", "Lightning.Log\Lightning.Log.vbproj", "{4D4D9B40-5EA1-47B5-850E-AF9809EE1EE1}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Lightning.Database", "Lightning.Database\Lightning.Database.vbproj", "{459A2296-C325-4D72-AF6C-AE21A62A3211}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Lightning.ParallelWorkerEngine", "Lightning.ParallelWorkerEngine\Lightning.ParallelWorkerEngine.vbproj", "{3B512D52-E1BF-4E5E-870C-F740EB735D1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +66,17 @@ Global
 		{FECA52E0-C389-45D1-854C-24E407E7901D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FECA52E0-C389-45D1-854C-24E407E7901D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FECA52E0-C389-45D1-854C-24E407E7901D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D4D9B40-5EA1-47B5-850E-AF9809EE1EE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D4D9B40-5EA1-47B5-850E-AF9809EE1EE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D4D9B40-5EA1-47B5-850E-AF9809EE1EE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D4D9B40-5EA1-47B5-850E-AF9809EE1EE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{459A2296-C325-4D72-AF6C-AE21A62A3211}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{459A2296-C325-4D72-AF6C-AE21A62A3211}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{459A2296-C325-4D72-AF6C-AE21A62A3211}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{459A2296-C325-4D72-AF6C-AE21A62A3211}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B512D52-E1BF-4E5E-870C-F740EB735D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B512D52-E1BF-4E5E-870C-F740EB735D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B512D52-E1BF-4E5E-870C-F740EB735D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B512D52-E1BF-4E5E-870C-F740EB735D1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
