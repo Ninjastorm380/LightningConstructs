@@ -5,10 +5,8 @@ Namespace Lightning
     Public Partial Class Database(Of T As {DatabaseObject})
         Public Sub New(ContentRoot As String)
             BaseContentPath = ContentRoot
-            BackingStore = New ConcurrentDictionary(Of String, T)
+            BackingStore = New Dictionary(Of String, T)
             BackingIndex = New Dictionary(Of String, IndexEntry)
-            CountThreshold = 10000
-            TimeThreshold = New TimeSpan(0,0,0,1,0)
             BackingStoreLock = New Object
             IndexFile = ContentRoot & "/db.index"
         End Sub
@@ -16,11 +14,11 @@ Namespace Lightning
         Public Sub LoadAll()
             SyncLock BackingStoreLock
                 If IO.Directory.Exists(BaseContentPath) = False OrElse IO.File.Exists(IndexFile) = False Then Return
-                
                 Dim Entries As String() = IO.File.ReadAllLines(IndexFile)
+                If Entries.Length = 0 Then Return
+                
                 BackingIndex.Clear() : BackingIndex = New Dictionary(Of String, IndexEntry)( Entries.Length)
-                BackingStore.Clear() : BackingStore = New ConcurrentDictionary(Of String, T)(Entries.Length, Entries.Length)
-
+                BackingStore.Clear() : BackingStore = New Dictionary(Of String, T)(Entries.Length)
                 Dim ParserQueue As New ParallelWorkerEngine(Of ParseWorker)(Entries.Length)
                 Dim Indexer As Int32 = 0 : For Each Entry In Entries
                     ParserQueue.Enqueue(New ParseWorker(Entry, BackingIndex, Indexer)) 
@@ -31,31 +29,26 @@ Namespace Lightning
                 For Each Entry In BackingIndex
                     LoaderQueue.Enqueue(New LoadWorker(Entry.Value, BaseContentPath, BackingStore))
                 Next : LoaderQueue.Run() : LoaderQueue.WaitForAll() : LoaderQueue.Clear()
-                
             End SyncLock
         End Sub
         
         Public Sub SaveModified()
             SyncLock BackingStoreLock
-                If IO.Directory.Exists(BaseContentPath) = False Then 
-                    IO.Directory.CreateDirectory(BaseContentPath)
-                End If
+                If IO.Directory.Exists(BaseContentPath) = False Then IO.Directory.CreateDirectory(BaseContentPath)
                 
                 Dim SaveQueue As New ParallelWorkerEngine(Of SaveWorker) : For Each Entry in BackingStore
-                    If Entry.Value.Dirty = True Then SaveQueue.Enqueue(New SaveWorker(Entry.Value, BackingIndex(Entry.Key), BaseContentPath))
+                    If Entry.Value.Dirty = True Then
+                        SaveQueue.Enqueue(New SaveWorker(Entry.Value, BackingIndex(Entry.Key), BaseContentPath))
+                    End If
                 Next : SaveQueue.Run() : SaveQueue.WaitForAll() : SaveQueue.Clear()
                 IO.File.WriteAllLines(IndexFile, GetEntries())
             End SyncLock
         End Sub
         
         Public Function CompareAdd(Entry As T) As Boolean
-            If BackingStore.ContainsKey(Entry.ID) = True Then
-                Return False
-            End If
+            If BackingStore.ContainsKey(Entry.ID) = True Then Return False
             SyncLock BackingStoreLock
-                If BackingStore.ContainsKey(Entry.ID) = True Then 
-                    Return False
-                End If
+                If BackingStore.ContainsKey(Entry.ID) = True Then Return False
                 
                 Dim SubcontentPathBuilder As New StringBuilder : SubcontentPathBuilder.
                     Append(BaseContentPath).
@@ -68,8 +61,9 @@ Namespace Lightning
                     Append(".db")
                 Dim FilePath As String = FilePathBuilder.ToString()
                 
-                BackingStore.TryAdd(Entry.ID, Entry)
+                BackingStore.Add(Entry.ID, Entry)
                 BackingIndex.Add(Entry.ID, New IndexEntry(Entry.ID, FilePath, SubcontentPath, BackingIndex.Count))
+                Entry.BaseInit(BaseContentPath, BackingIndex(Entry.ID).FilePath, BackingIndex(Entry.ID).SubcontentPath)
                 Return True
             End SyncLock
         End Function
@@ -90,16 +84,14 @@ Namespace Lightning
             If BackingStore.ContainsKey(ID) = False Then Return False
             SyncLock BackingStoreLock
                 If BackingStore.ContainsKey(ID) = False Then Return False
-                
+            
                 Dim FilePath As String = BackingIndex(ID).FilePath
-                
                 Dim SubcontentPath As String = BackingIndex(ID).SubcontentPath
-                
+            
                 If IO.File.Exists(FilePath) = True Then IO.File.Delete(FilePath)
                 If IO.Directory.Exists(SubcontentPath) = True Then IO.Directory.Delete(SubcontentPath, True)
-                BackingStore.TryRemove(ID, Nothing)
+                BackingStore.Remove(ID)
                 BackingIndex.Remove(ID)
-                
                 Return True
             End SyncLock
         End Function
@@ -111,6 +103,15 @@ Namespace Lightning
         Public Function Contains(ID As String) As Boolean
             SyncLock BackingStoreLock
                 Return BackingStore.ContainsKey(ID)
+            End SyncLock
+        End Function
+        
+        Public Function CompareUpdate(Entry As T) As Boolean
+            If BackingStore.ContainsKey(Entry.ID) = False Then Return False
+            SyncLock BackingStoreLock
+                If BackingStore.ContainsKey(Entry.ID) = False Then Return False
+                BackingStore(Entry.ID) = Entry
+                Return True
             End SyncLock
         End Function
     End Class

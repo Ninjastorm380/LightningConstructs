@@ -6,8 +6,6 @@ Namespace Lightning
         Public MustInherit Class DatabaseObject
             Private BaseDirty As Boolean
             Protected BaseID As String
-            
-            
             Protected ReadOnly ThreadedAccessLock As Object
             Protected Friend Sub New(ID As String)
                 BaseID = ID
@@ -18,7 +16,7 @@ Namespace Lightning
                 If BaseDirty = False Then Return
                 SyncLock ThreadedAccessLock
                     If BaseDirty = False Then Return
-                    Save(ContentPath, FilePath, SubcontentPath) 
+                    Save(ContentPath, FilePath, SubcontentPath)
                     BaseDirty = False
                 End SyncLock
             End Sub
@@ -30,8 +28,15 @@ Namespace Lightning
                     BaseDirty = False
                 End SyncLock
             End Sub
+            
+            Friend Sub BaseInit(ContentPath As String, FilePath As String, SubcontentPath As String)
+                SyncLock ThreadedAccessLock
+                    Init(ContentPath, FilePath, SubcontentPath)
+                End SyncLock
+            End Sub
             Protected MustOverride Sub Save(ContentPath As String, FilePath As String, SubcontentPath As String)
             Protected MustOverride Sub Load(ContentPath As String, FilePath As String, SubcontentPath As String)
+            Protected MustOverride Sub Init(ContentPath As String, FilePath As String, SubcontentPath As String)
             Public ReadOnly Property ID As String
                 Get 
                     SyncLock ThreadedAccessLock
@@ -165,7 +170,7 @@ Namespace Lightning
             Private BaseCompleted As Boolean
             Private ReadOnly ContentClassType As Type
             Private ReadOnly BaseContentPath As String
-            Private ReadOnly Target As ConcurrentDictionary(Of String, T)
+            Private ReadOnly Target As Dictionary(Of String, T)
 
             Public ReadOnly Property Input As IndexEntry
                 Get 
@@ -186,7 +191,7 @@ Namespace Lightning
             End Property
 
 
-            Public Sub New(Entry As IndexEntry, BaseContentPath As String, Target As ConcurrentDictionary(Of String, T))
+            Public Sub New(Entry As IndexEntry, BaseContentPath As String, Target As Dictionary(Of String, T))
                 BaseInput = Entry
                 ContentClassType = GetType(T)
                 Me.BaseContentPath = BaseContentPath
@@ -201,14 +206,16 @@ Namespace Lightning
             
             Private Sub Worker()
                 BaseOutput = CType(Activator.CreateInstance(ContentClassType, BaseInput.ID), T)
+                BaseOutput.BaseInit(BaseContentPath, BaseInput.FilePath, BaseInput.SubcontentPath)
                 BaseOutput.BaseLoad(BaseContentPath, BaseInput.FilePath, BaseInput.SubcontentPath)
-                Target.TryAdd(BaseOutput.ID, BaseOutput)
+                Target.Add(BaseOutput.ID, BaseOutput)
                 BaseCompleted = True
             End Sub
         End Class
         Private Class SaveWorker : Inherits ParallelWorkerEngine(Of SaveWorker).ParallelWorker
             Private BaseInput As T
             Private BaseCompleted As Boolean
+            Private BaseTriggered As Boolean
             Private ReadOnly BaseContentPath As String
             Private ReadOnly IndexEntry As IndexEntry
             Public ReadOnly Property Input As T
@@ -232,12 +239,14 @@ Namespace Lightning
             
             Public Overrides Sub Run()
                 BaseCompleted = False
+                BaseTriggered = True
                 LambdaThread.Start(AddressOf Worker, "SaveWorker work thread")
             End Sub
             
             Private Sub Worker()
                 BaseInput.BaseSave(BaseContentPath, IndexEntry.FilePath, IndexEntry.SubcontentPath)
                 BaseCompleted = True
+                'BaseTriggered = False
             End Sub
         End Class
     End Class

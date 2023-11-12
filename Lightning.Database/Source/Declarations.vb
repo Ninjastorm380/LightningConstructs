@@ -2,7 +2,7 @@ Imports System.Collections.Concurrent
 
 Namespace Lightning
     Public Partial Class Database(Of T As {DatabaseObject})
-        Private BackingStore As ConcurrentDictionary(Of String, T)
+        Private BackingStore As Dictionary(Of String, T)
         Private ReadOnly BackingStoreLock As Object
         Private BackingIndex As Dictionary(Of String, IndexEntry)
         Private ReadOnly BaseContentPath As String
