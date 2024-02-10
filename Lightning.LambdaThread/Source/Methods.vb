@@ -48,6 +48,13 @@ Namespace Lightning
             Worker = New BackgroundWorker()
             AddHandler Worker.DoWork, AddressOf WorkThread
         End Sub
+        
+        Public Sub New(ThreadStart As ThreadStart, Optional Name As String = "New LambdaThread Instance")
+            Me.Name = Name
+            Workload = ThreadStart
+            Worker = New BackgroundWorker()
+            AddHandler Worker.DoWork, AddressOf WorkThread
+        End Sub
 
         Private Sub WorkThread(Sender As Object, E As DoWorkEventArgs)
             Dim OldName As String = Threading.Thread.CurrentThread.Name
@@ -88,6 +95,13 @@ Namespace Lightning
             Me.Name = Name
             P1 = Parameter1
             P2 = Parameter2
+            Workload = ThreadStart
+            Worker = New BackgroundWorker()
+            AddHandler Worker.DoWork, AddressOf WorkThread
+        End Sub
+        
+        Public Sub New(ThreadStart As ThreadStart, Optional Name As String = "New LambdaThread Instance")
+            Me.Name = Name
             Workload = ThreadStart
             Worker = New BackgroundWorker()
             AddHandler Worker.DoWork, AddressOf WorkThread
@@ -137,6 +151,13 @@ Namespace Lightning
             Worker = New BackgroundWorker()
             AddHandler Worker.DoWork, AddressOf WorkThread
         End Sub
+        
+        Public Sub New(ThreadStart As ThreadStart, Optional Name As String = "New LambdaThread Instance")
+            Me.Name = Name
+            Workload = ThreadStart
+            Worker = New BackgroundWorker()
+            AddHandler Worker.DoWork, AddressOf WorkThread
+        End Sub
 
         Private Sub WorkThread(Sender As Object, E As DoWorkEventArgs)
             Dim OldName As String = Threading.Thread.CurrentThread.Name
@@ -180,6 +201,13 @@ Namespace Lightning
             P2 = Parameter2
             P3 = Parameter3
             P4 = Parameter4
+            Workload = ThreadStart
+            Worker = New BackgroundWorker()
+            AddHandler Worker.DoWork, AddressOf WorkThread
+        End Sub
+        
+        Public Sub New(ThreadStart As ThreadStart, Optional Name As String = "New LambdaThread Instance")
+            Me.Name = Name
             Workload = ThreadStart
             Worker = New BackgroundWorker()
             AddHandler Worker.DoWork, AddressOf WorkThread
@@ -233,6 +261,13 @@ Namespace Lightning
             Worker = New BackgroundWorker()
             AddHandler Worker.DoWork, AddressOf WorkThread
         End Sub
+        
+        Public Sub New(ThreadStart As ThreadStart, Optional Name As String = "New LambdaThread Instance")
+            Me.Name = Name
+            Workload = ThreadStart
+            Worker = New BackgroundWorker()
+            AddHandler Worker.DoWork, AddressOf WorkThread
+        End Sub
 
         Private Sub WorkThread(Sender As Object, E As DoWorkEventArgs)
             Dim OldName As String = Threading.Thread.CurrentThread.Name
@@ -280,6 +315,13 @@ Namespace Lightning
             P4 = Parameter4
             P5 = Parameter5
             P6 = Parameter6
+            Workload = ThreadStart
+            Worker = New BackgroundWorker()
+            AddHandler Worker.DoWork, AddressOf WorkThread
+        End Sub
+        
+        Public Sub New(ThreadStart As ThreadStart, Optional Name As String = "New LambdaThread Instance")
+            Me.Name = Name
             Workload = ThreadStart
             Worker = New BackgroundWorker()
             AddHandler Worker.DoWork, AddressOf WorkThread
